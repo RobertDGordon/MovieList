@@ -15,7 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 import { MovieDataContext } from '../MovieDataContext';
 
-const pages = ['post', 'card', 'blog'];
+const pages = ['post', 'movies', "my-movies", 'signup', 'login', 'logout'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
@@ -137,7 +137,7 @@ function ResponsiveAppBar() {
             <Typography>Total Movies:{value.length}</Typography>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="vite.svg" />
               </IconButton>
             </Tooltip>
             <Menu

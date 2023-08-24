@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia'
+import { useState } from 'react';
 
 // import {
 //   Box,
@@ -27,6 +28,38 @@ export const bull = (
 
 export function BasicCard(props) {
   const { movie } = props;
+  const [saved, setSaved] = useState(false)
+  
+  const handleFavorite = (e) => {
+    e.preventDefault();
+  
+    console.log(movie.id);
+
+    const data = {
+      movie_ids: [movie.id]
+    }
+
+    const userId = sessionStorage.getItem("id")
+
+    fetch(`http://localhost:8000/api/users/${userId}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        if(json.success){
+          //if response success = true
+          console.log("TODO: something")
+          setSaved(true)
+        } else {
+          console.log("Error:", json.message)
+        }
+      });
+  };
   return (
     <Card sx={{ minWidth: 275, margin: 5 }}>
       <CardMedia
@@ -51,7 +84,7 @@ export function BasicCard(props) {
       <CardActions
         sx={{justifyContent: "right"}}
       >
-        <Button size="small">Learn More</Button>
+        <Button size="small" onClick={handleFavorite}>{saved ? "Saved!" : "Add To Favorites"}</Button>
       </CardActions>
     </Card>
   );
