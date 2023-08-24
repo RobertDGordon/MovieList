@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const [email, setEmail] = useState("")
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
 
@@ -13,10 +15,10 @@ export default function SignUp() {
     e.preventDefault();
     const data = {
       email,
+      firstName,
+      lastName,
       password
     };
-
-    console.log(data);
 
     fetch("http://localhost:8000/api/auth/signup", {
       method: "POST",
@@ -30,11 +32,12 @@ export default function SignUp() {
         console.log(json);
         if(json.success){
           //if response success = true
-          sessionStorage.setItem("authenticated", json.success)
-          sessionStorage.setItem("id", json.data[0].id)
+          // NOTE: look at the response from the API, it does not return json.data as an array
+          sessionStorage.setItem("authenticated", json.success) //this sets the login auth to true so the user doesn't have to login after signing up
+          sessionStorage.setItem("id", json.data.id)
           navigate("/movies")
         } else {
-          setError(json.message)
+          setError(json.message.errors[0].message)
         }
       });
   };
@@ -53,13 +56,33 @@ export default function SignUp() {
       noValidate
       autoComplete="off"
     >
+      <Typography variant="h6" color="black">Sign Up</Typography>
       <TextField
         id="outlined-basic"
         name="email"
         label="email"
         variant="outlined"
         onChange={(e) => setEmail(e.target.value)}
+        required
         value={email}
+      />
+      <TextField
+
+        name="firstName"
+        label="first name"
+        variant="outlined"
+        onChange={(e) => setFirstName(e.target.value)}
+        required
+        value={firstName}
+      />
+      <TextField
+
+        name="lastName"
+        label="last name"
+        variant="outlined"
+        onChange={(e) => setLastName(e.target.value)}
+        required
+        value={lastName}
       />
       <TextField
         type="password"
@@ -67,6 +90,7 @@ export default function SignUp() {
         label="password"
         variant="outlined"
         onChange={(e) => setPassword(e.target.value)}
+        required
         value={password}
       />
       {error ? (<Typography color="red">{error}</Typography>) : null}

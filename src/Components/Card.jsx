@@ -36,12 +36,12 @@ export function BasicCard(props) {
     console.log(movie.id);
 
     const data = {
-      movie_ids: [movie.id]
+      movie_id: movie.id
     }
 
     const userId = sessionStorage.getItem("id")
 
-    fetch(`http://localhost:8000/api/users/${userId}`, {
+    fetch(`http://localhost:8000/api/users/${userId}/movies`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {

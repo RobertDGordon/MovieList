@@ -12,13 +12,18 @@ export default function MyFavoriteMovies() {
     fetch(`http://localhost:8000/api/users/${userId}`)
       .then((response) => response.json())
       .then((json) => {
-        // console.log("Repsonse:", json),
-        // setMovies(json.data[0].movie_ids),
-        const movie_id = json.data[0].movie_ids[0]
-        fetch(`http://localhost:8000/api/movies/${movie_id}`)
+        //extract movie array and call the API
+        const movie_ids = json.data[0].movie_ids
+        fetch(`http://localhost:8000/api/movies/list/`, {
+          method: "POST",
+          body: JSON.stringify({movie_ids: movie_ids}),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        })
         .then((response) => response.json())
         .then((json) => {
-          console.log(json)
+          // update state to response from, API
           setMovies(json.data)
         })
       })

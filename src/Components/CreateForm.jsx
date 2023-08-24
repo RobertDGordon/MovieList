@@ -17,9 +17,7 @@ export default function CreateForm() {
       image,
     };
 
-    console.log(data);
-
-    fetch("http://localhost:3000/api/addMovie", {
+    fetch("http://localhost:8000/api/movies/create", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -31,7 +29,7 @@ export default function CreateForm() {
         console.log(json.result);
       });
 
-    navigate('/card')
+    navigate('/movies')
   };
 
   return (

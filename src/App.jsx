@@ -19,13 +19,8 @@ function App() {
     fetch("http://localhost:8000/api/movies/")
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         setData(json.data);
       });
-
-    // return () => {
-    //   second
-    // }
   }, []);
 
   return (
