@@ -16,8 +16,6 @@ export default function LoginForm() {
       password
     };
 
-    console.log(data);
-
     fetch("http://localhost:8000/api/auth/login", {
       method: "POST",
       body: JSON.stringify(data),
@@ -27,7 +25,6 @@ export default function LoginForm() {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         if(json.success){
           //if response success = true
           sessionStorage.setItem("authenticated", json.success)

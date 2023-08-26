@@ -8,15 +8,6 @@ import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia'
 import { useState } from 'react';
 
-// import {
-//   Box,
-//   Card,
-//   CardActions,
-//   CardContent,
-//   Button,
-//   Typography,
-// } from "@mui/material";
-
 export const bull = (
   <Box
     component="span"
@@ -32,8 +23,6 @@ export function BasicCard(props) {
   
   const handleFavorite = (e) => {
     e.preventDefault();
-  
-    console.log(movie.id);
 
     const data = {
       movie_id: movie.id
@@ -50,7 +39,6 @@ export function BasicCard(props) {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         if(json.success){
           //if response success = true
           console.log("TODO: something")
